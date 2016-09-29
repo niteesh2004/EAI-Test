@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div style="height:50px;"></div>
+
+@model System.Data.DataTable
+@using System.Data
+
+<table style="width:60%">
+    <thead>
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <th style="width:15%; background-color: cadetblue;">@col.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+            {
+            <tr style="text-align:left">
+
+
+                <td>  @Html.ActionLink(@row["ID"].ToString(), "UserDetail", new { id = @row["ID"].ToString(), name = @row["Name"].ToString() }, new { @class = "GetBuildingDetails", data_id = @row["ID"].ToString(), data_name = @row["Name"].ToString() })</td>
+                <td>  @Html.ActionLink(@row["Name"].ToString(), "UserDetail", new { id = @row["ID"].ToString(), name = @row["Name"].ToString() }, new { @class = "GetBuildingDetails", data_id = @row["ID"].ToString(), data_name = @row["Name"].ToString() })</td>
+
+               
+                <td>@row["Usercount"]</td>
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.GetBuildingDetails').on('click', function (e) {
+        e.preventDefault();
+        
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+        $.get('@Url.Action("UserDetail")', { id: id ,name:name}, function (result) {
+            $('#result').html(result);
+        });
+        });
+        });
+</script>
+
+<div id="result">
+
+</div>
+

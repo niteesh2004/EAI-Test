@@ -1,0 +1,32 @@
+﻿
+@model System.Data.DataTable
+@using System.Data
+
+
+<div style="height:50px;"></div>
+<h3>Users associated with <label style="color: orange;">@ViewBag.name </label> are</h3>
+<table style="width:20%">
+    <thead>
+        <tr style="text-align:center">
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <th style="text-align:center;  background-color: cadetblue;">@col.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+            {
+            <tr style="text-align:center">
+
+                @*<td>@Html.ActionLink(@row["ID"].ToString(), "BuildingDetails")</td>*@
+
+                <td>@row["Name"]</td>
+
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
